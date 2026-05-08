@@ -622,7 +622,7 @@ export default function Home() {
 
       {selectedVideo && (
         <div className="modalOverlay" onClick={() => setSelectedVideo(null)}>
-          <div className="memberModal" style={{ width: 'min(1000px, 95vw)', aspectSize: '16/9', padding: '0', background: '#000', overflow: 'hidden' }} onClick={(e) => e.stopPropagation()}>
+          <div className="memberModal" style={{ width: 'min(1000px, 95vw)', aspectRatio: '16/9', padding: '0', background: '#000', overflow: 'hidden' }} onClick={(e) => e.stopPropagation()}>
             <button className="closeModal" onClick={() => setSelectedVideo(null)} style={{ zIndex: 100, background: 'rgba(0,0,0,0.5)' }}><X size={16} /></button>
             <div style={{ position: 'relative', paddingBottom: '56.25%', height: 0 }}>
               <iframe 

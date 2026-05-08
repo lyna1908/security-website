@@ -10,7 +10,7 @@ const navItems = [
   { id: "phishing", label: "PHISHING" },
   { id: "team", label: "TEAM" },
   { id: "meetings", label: "MEETINGS" },
-  { id: "thanks", label: "THANKS" },
+  { id: "thanks", label: "ACKNOWLEDGEMENTS" },
 ];
 
 type TeamMember = {

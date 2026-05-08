@@ -32,7 +32,7 @@ const resourceCards: ResourceCard[] = [
   { id: "rfid-video", title: "VIDEO_DEMO", icon: <Video size={36} />, text: "Complete demonstration of RFID range extension attack and detection methods" },
   { id: "rfid-presentation", title: "PRESENTATION", icon: <Presentation size={36} />, text: "Technical slides covering methodology, results, and security implications" },
   { id: "rfid-report", title: "REPORT", icon: <FileText size={36} />, text: "Comprehensive documentation of research findings and experimental data" },
-  { id: "rfid-code", title: "SOURCE_CODE", icon: <Github size={36} />, text: "Complete implementation including tools, scripts, and configuration files" },
+  { id: "rfid-code", title: "SOURCE_CODE", icon: <Github size={36} />, text: "Not available for this project. Range extension focuses on hardware implementation." },
 ];
 
 const redCards: ResourceCard[] = [
@@ -242,15 +242,70 @@ function ContributionCircle({
 
 export default function Home() {
   const [selectedMember, setSelectedMember] = useState<TeamMember | null>(null);
+  const [selectedPdf, setSelectedPdf] = useState<string | null>(null);
+  const [selectedVideo, setSelectedVideo] = useState<string | null>(null);
   const [activeSection, setActiveSection] = useState("home");
   const links = useMemo(() => navItems, []);
   const leader = teamMembers.find((m) => m.leader) ?? teamMembers[0];
   const others = teamMembers.filter((m) => m !== leader);
   const getMailToLink = (email: string, name: string) =>
     `mailto:${email}?subject=${encodeURIComponent(`Hello ${name}`)}`;
+  const getYouTubeEmbedUrl = (url: string) => {
+    if (!url.includes("youtube.com") && !url.includes("youtu.be")) return url;
+    try {
+      const urlObj = new URL(url);
+      let videoId = "";
+      let startTime = "";
+
+      if (url.includes("watch?v=")) {
+        videoId = urlObj.searchParams.get("v") || "";
+        startTime = urlObj.searchParams.get("t") || "";
+      } else {
+        videoId = url.split("youtu.be/")[1]?.split("?")[0] || "";
+        startTime = urlObj.searchParams.get("t") || "";
+      }
+
+      const seconds = startTime.replace("s", "");
+      return `https://www.youtube.com/embed/${videoId}${seconds ? `?start=${seconds}` : ""}${seconds ? "&" : "?"}autoplay=1`;
+    } catch (e) {
+      return url;
+    }
+  };
+
   const getResourceLink = (id: string) => {
-    if (id === "phishing-presentation") return "/phishing_email_presentation.pdf";
-    return "#";
+    switch (id) {
+      case "rfid-video":
+        return "https://www.youtube.com/watch?v=hVNyHnHAxD0&t=883s";
+      case "rfid-presentation":
+        return "/RFID%20slides.pdf";
+      case "rfid-report":
+        return "/RFID%20report.pdf";
+      case "phishing-video":
+        return "https://youtube.com/watch?v=IKlbKzEgGbE&t=1s";
+      case "phishing-presentation":
+        return "/Phishing%20slides.pdf";
+      case "phishing-report":
+        return "/Phishing_email_detection_system%20report.pdf";
+      case "phishing-code":
+        return "https://github.com/lyna1908/PhishScan";
+      default:
+        return "#";
+    }
+  };
+
+  const handleResourceClick = (e: React.MouseEvent, id: string) => {
+    const link = getResourceLink(id);
+    if (link === "#") {
+      e.preventDefault();
+      return;
+    }
+    if (link.endsWith(".pdf")) {
+      e.preventDefault();
+      setSelectedPdf(link);
+    } else if (link.includes("youtube.com") || link.includes("youtu.be")) {
+      e.preventDefault();
+      setSelectedVideo(getYouTubeEmbedUrl(link));
+    }
   };
 
   useEffect(() => {
@@ -322,11 +377,10 @@ export default function Home() {
                   href={getResourceLink(card.id)}
                   target={getResourceLink(card.id) !== "#" ? "_blank" : undefined}
                   rel={getResourceLink(card.id) !== "#" ? "noreferrer" : undefined}
-                  onClick={(e) => {
-                    if (getResourceLink(card.id) === "#") e.preventDefault();
-                  }}
+                  onClick={(e) => handleResourceClick(e, card.id)}
+                  className={getResourceLink(card.id) === "#" ? "disabled" : ""}
                 >
-                  ACCESS <ArrowRight size={19} />
+                  {getResourceLink(card.id) === "#" ? "NOT AVAILABLE" : "ACCESS"} <ArrowRight size={19} />
                 </a>
               </article>
             ))}
@@ -346,11 +400,10 @@ export default function Home() {
                   href={getResourceLink(card.id)}
                   target={getResourceLink(card.id) !== "#" ? "_blank" : undefined}
                   rel={getResourceLink(card.id) !== "#" ? "noreferrer" : undefined}
-                  onClick={(e) => {
-                    if (getResourceLink(card.id) === "#") e.preventDefault();
-                  }}
+                  onClick={(e) => handleResourceClick(e, card.id)}
+                  className={getResourceLink(card.id) === "#" ? "disabled" : ""}
                 >
-                  ACCESS <ArrowRight size={19} />
+                  {getResourceLink(card.id) === "#" ? "NOT AVAILABLE" : "ACCESS"} <ArrowRight size={19} />
                 </a>
               </article>
             ))}
@@ -549,6 +602,38 @@ export default function Home() {
             </div>
             <div className="modalBlock"><h4>&gt; CONTACT</h4><div className="contactLinks">{selectedMember.email && <a href={getMailToLink(selectedMember.email, selectedMember.name)} aria-label="email" title={`Email ${selectedMember.name}`}><MailIcon size={15} /></a>}{selectedMember.github && <a href={selectedMember.github} target="_blank" rel="noreferrer" aria-label="github"><GithubIcon size={15} /></a>}</div></div>
           </article>
+        </div>
+      )}
+
+      {selectedPdf && (
+        <div className="modalOverlay" onClick={() => setSelectedPdf(null)}>
+          <div className="memberModal" style={{ width: '95vw', height: '90vh', padding: '0', background: '#000' }} onClick={(e) => e.stopPropagation()}>
+            <button className="closeModal" onClick={() => setSelectedPdf(null)} style={{ zIndex: 100, background: 'rgba(0,0,0,0.5)' }}><X size={16} /></button>
+            <iframe 
+              src={selectedPdf} 
+              width="100%" 
+              height="100%" 
+              style={{ border: 'none', borderRadius: '8px' }}
+              title="PDF Viewer"
+            />
+          </div>
+        </div>
+      )}
+
+      {selectedVideo && (
+        <div className="modalOverlay" onClick={() => setSelectedVideo(null)}>
+          <div className="memberModal" style={{ width: 'min(1000px, 95vw)', aspectSize: '16/9', padding: '0', background: '#000', overflow: 'hidden' }} onClick={(e) => e.stopPropagation()}>
+            <button className="closeModal" onClick={() => setSelectedVideo(null)} style={{ zIndex: 100, background: 'rgba(0,0,0,0.5)' }}><X size={16} /></button>
+            <div style={{ position: 'relative', paddingBottom: '56.25%', height: 0 }}>
+              <iframe 
+                src={selectedVideo} 
+                style={{ position: 'absolute', top: 0, left: 0, width: '100%', height: '100%', border: 'none', borderRadius: '8px' }}
+                title="Video Player"
+                allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+                allowFullScreen
+              />
+            </div>
+          </div>
         </div>
       )}
     </>

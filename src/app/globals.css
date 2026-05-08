@@ -85,6 +85,7 @@ nav a.active, nav a:hover { color: var(--neon-green); }
 .iconWrap { display: inline-flex; align-items: center; }
 .card p { margin: 1.25rem 0; color: #9aa3af; font-size: clamp(1.1rem, 1.2vw, 1.85rem); line-height: 1.42; max-width: 90%; }
 .card a { color: var(--neon-green); font: 700 clamp(1.1rem, 1.5vw, 1.35rem) 'IBM Plex Mono', monospace; display: inline-flex; gap: 0.4rem; align-items: center; }
+.card a.disabled { color: var(--dim); cursor: not-allowed; opacity: 0.6; pointer-events: none; }
 
 .project.red .kicker, .project.red h2, .project.red .card h3, .project.red .card a { color: var(--neon-red); }
 .project.red .blurb { border-left-color: var(--neon-red); }

@@ -1,7 +1,7 @@
-﻿"use client";
+"use client";
 
 import { useEffect, useMemo, useState } from "react";
-import { Shield, Radio, Mail, Video, Presentation, FileText, Github, X, Circle, ArrowRight, Mail as MailIcon, Github as GithubIcon, Clock3, MapPin, Users } from "lucide-react";
+import { Shield, Radio, Mail, Video, Presentation, FileText, Github, X, Circle, ArrowRight, Mail as MailIcon, Github as GithubIcon, Clock3, MapPin, Users, Heart } from "lucide-react";
 import Image from "next/image";
 
 const navItems = [
@@ -437,7 +437,7 @@ export default function Home() {
         </section>
 
         <section id="thanks" className="section thanks">
-          <div className="seal"><Circle size={70} /></div>
+          <div className="seal"><Heart size={70} fill="currentColor" /></div>
           <h2>ACKNOWLEDGEMENTS</h2>
           <div className="blurb">We extend our gratitude to Dr. Michael Stevens and the Computer Science faculty for their guidance throughout this module. Special thanks to the university&apos;s Security Research Lab for providing testing infrastructure and resources.<br /><br />This work would not have been possible without the support of our peers, mentors, and the open-source security community.</div>
           <footer><p>UNIVERSITY COMPUTER NETWORK SECURITY MODULE</p><p>&gt; SECURE // ANALYZE // DEFEND</p><p>2025-26 (C) ALL RIGHTS RESERVED</p></footer>

@@ -439,7 +439,48 @@ export default function Home() {
         <section id="thanks" className="section thanks">
           <div className="seal"><Heart size={70} fill="currentColor" /></div>
           <h2>ACKNOWLEDGEMENTS</h2>
-          <div className="blurb">We extend our gratitude to Dr. Michael Stevens and the Computer Science faculty for their guidance throughout this module. Special thanks to the university&apos;s Security Research Lab for providing testing infrastructure and resources.<br /><br />This work would not have been possible without the support of our peers, mentors, and the open-source security community.</div>
+          <div className="blurb thanksText">
+            <p className="thanksMain">From the bottom of our hearts — the whole team</p>
+            <p>Every word of encouragement, every bit of guidance, and every helping hand made a real difference. We are truly grateful for all of you.</p>
+            
+            <div className="thanksGrid">
+              <div className="thanksItem">
+                <strong>Prof. Lounis</strong>
+                <span>Your mentorship lit our path. Thank you for your wisdom.</span>
+              </div>
+              <div className="thanksItem">
+                <strong>Prof. Kheloufi</strong>
+                <span>Your insights shaped our thinking. We are forever thankful.</span>
+              </div>
+              <div className="thanksItem">
+                <strong>Prof. Bensalem</strong>
+                <span>Your patience and expertise guided us through challenges.</span>
+              </div>
+              <div className="thanksItem">
+                <strong>Prof. Djoumaa</strong>
+                <span>Your dedication inspired us to push beyond our limits.</span>
+              </div>
+              <div className="thanksItem">
+                <strong>CELEC Club — USTHB</strong>
+                <span>Your community made us feel supported every step of the way.</span>
+              </div>
+              <div className="thanksItem">
+                <strong>Our Families</strong>
+                <span>Your unconditional love and patience were our greatest fuel.</span>
+              </div>
+              <div className="thanksItem">
+                <strong>The Electrician in the Dorm</strong>
+                <span>The small help you gave us kept us going. Thank you!</span>
+              </div>
+              <div className="thanksItem">
+                <strong>Our School&apos;s Security Agent</strong>
+                <span>Your warm presence and care never went unnoticed.</span>
+              </div>
+            </div>
+
+            <p className="thanksClosing">No act of kindness is too small. You all left a mark on our journey.</p>
+            <p className="signature">— With sincere gratitude, the team leader &amp; the whole team</p>
+          </div>
           <footer><p>UNIVERSITY COMPUTER NETWORK SECURITY MODULE</p><p>&gt; SECURE // ANALYZE // DEFEND</p><p>2025-26 (C) ALL RIGHTS RESERVED</p></footer>
         </section>
       </main>
